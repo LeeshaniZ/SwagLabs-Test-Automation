@@ -30,7 +30,7 @@ The test uses TestNG assertions, Selenium explicit waits, environment-based sett
 
 GitHub Actions runs the Maven test suite on pushes and pull requests targeting `main`. The workflow installs Java and Chrome, then executes the test in headless mode.
 
-Latest verified run: **1 test passed, 0 failures, 0 errors**. See the Actions badge above for the current workflow status.
+The workflow is being stabilised against timing differences during page navigation. Check the Actions badge above for the latest run result.
 
 ## Prerequisites
 
