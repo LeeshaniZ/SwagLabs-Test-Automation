@@ -1,5 +1,7 @@
 # SwagLabs UI Test Automation
 
+[![Selenium UI Tests](https://github.com/LeeshaniZ/SwagLabs-Test-Automation/actions/workflows/maven.yml/badge.svg)](https://github.com/LeeshaniZ/SwagLabs-Test-Automation/actions/workflows/maven.yml)
+
 A Java-based browser automation project that exercises a complete shopping and checkout journey on the public SauceDemo sample application.
 
 ## Technology
@@ -9,6 +11,7 @@ A Java-based browser automation project that exercises a complete shopping and c
 - TestNG
 - Maven
 - Google Chrome
+- GitHub Actions
 
 ## Automated scenario
 
@@ -22,6 +25,12 @@ The end-to-end test verifies that a user can:
 6. Complete the order and confirm the success message.
 
 The test uses TestNG assertions, Selenium explicit waits, environment-based settings, and a screenshot saved under `target/screenshots/`.
+
+## Continuous integration
+
+GitHub Actions runs the Maven test suite on pushes and pull requests targeting `main`. The workflow installs Java and Chrome, then executes the test in headless mode.
+
+Latest verified run: **1 test passed, 0 failures, 0 errors**. See the Actions badge above for the current workflow status.
 
 ## Prerequisites
 
@@ -70,6 +79,9 @@ The default credentials are public sample credentials provided by SauceDemo, not
 
 ```text
 SwagLabs-Test-Automation/
+├── .github/
+│   └── workflows/
+│       └── maven.yml
 ├── src/
 │   └── test/
 │       └── java/
