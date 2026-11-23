@@ -62,11 +62,7 @@ public class SwagLabsTest {
         driver.findElement(By.cssSelector("[data-test='password']")).sendKeys(PASSWORD);
         driver.findElement(By.cssSelector("[data-test='login-button']")).click();
 
-        Assert.assertEquals(
-                wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector("[data-test='title']"))).getText(),
-                "Products",
-                "The user should reach the products page after login.");
+        assertPageTitle("Products");
 
         // Add one product and verify the cart badge.
         wait.until(ExpectedConditions.elementToBeClickable(
@@ -79,30 +75,21 @@ public class SwagLabsTest {
 
         // Open the cart and verify its contents.
         driver.findElement(By.cssSelector(".shopping_cart_link")).click();
-        Assert.assertEquals(
-                wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector("[data-test='title']"))).getText(),
-                "Your Cart");
+        assertPageTitle("Your Cart");
         Assert.assertEquals(
                 driver.findElement(By.cssSelector(".cart_item .inventory_item_name")).getText(),
                 "Sauce Labs Backpack");
 
         // Enter checkout information.
         driver.findElement(By.cssSelector("[data-test='checkout']")).click();
-        Assert.assertEquals(
-                wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector("[data-test='title']"))).getText(),
-                "Checkout: Your Information");
+        assertPageTitle("Checkout: Your Information");
 
         driver.findElement(By.cssSelector("[data-test='firstName']")).sendKeys("Test");
         driver.findElement(By.cssSelector("[data-test='lastName']")).sendKeys("User");
         driver.findElement(By.cssSelector("[data-test='postalCode']")).sendKeys("12345");
         driver.findElement(By.cssSelector("[data-test='continue']")).click();
 
-        Assert.assertEquals(
-                wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.cssSelector("[data-test='title']"))).getText(),
-                "Checkout: Overview");
+        assertPageTitle("Checkout: Overview");
 
         // Verify the order summary and calculate the displayed total.
         List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
@@ -125,6 +112,14 @@ public class SwagLabsTest {
                 "Thank you for your order!");
 
         saveScreenshot("checkout-complete.png");
+    }
+
+    private void assertPageTitle(String expectedTitle) {
+        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("[data-test='title']")));
+        wait.until(ExpectedConditions.textToBePresentInElement(title, expectedTitle));
+        Assert.assertEquals(title.getText(), expectedTitle,
+                "The page title should match the expected checkout step.");
     }
 
     private double amountFrom(String selector) {
